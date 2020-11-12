@@ -1,0 +1,3 @@
+include ':ProjectAX'
+include ':app'
+rootProject.name = "Library"

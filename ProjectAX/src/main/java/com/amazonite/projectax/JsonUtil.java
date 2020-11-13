@@ -12,12 +12,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
-public class JsonUtility {
-    private static final String TAG = JsonUtility.class.getSimpleName();
+public class JsonUtil {
+    private static final String TAG = JsonUtil.class.getSimpleName();
     private Context mContext;
     private Gson mGson;
 
-    public JsonUtility(Context context){
+    public JsonUtil(Context context){
         this.mContext = context;
         mGson = new Gson();
     }

@@ -12,6 +12,6 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
 
 
-        System.out.println(TextUtil.toTitleCaseEveryWord("i was a nice kid"));
+        System.out.println(Validator.isValidPhoneNumber(""));
     }
 }

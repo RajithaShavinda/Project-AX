@@ -18,19 +18,30 @@ public class Validator {
                     "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
                     ")+"
     );
+    public static final Pattern PHONE = Pattern.compile(
+            "(\\+[0-9]+[\\- \\.]*)?"
+                    + "(\\([0-9]+\\)[\\- \\.]*)?"
+                    + "([0-9][0-9\\- \\.]+[0-9])"
+    );
 
 
+    /**
+     * @param stringValue - string value
+     * @return true - not empty | false - null or empty
+     */
     public static boolean isEmptyString(String stringValue){
         return stringValue == null || stringValue.trim().isEmpty();
     }
 
+    /**
+     * @param stringValue - string value
+     * @return string value which is not null
+     */
     public static String getStringValue(String stringValue){
         return (stringValue == null || stringValue.trim().isEmpty())? "" : stringValue.trim();
     }
 
     /**
-     * Check if email string is valid format.
-     *
      * @param email input string
      * @return boolean email format validation
      */
@@ -39,26 +50,37 @@ public class Validator {
     }
 
     /**
-     * Person name limit character alphabet and some punctuations.
-     *
      * @param name input string
-     * @return boolean
+     * @return boolean - format validation
      */
-    public static boolean isPersonName(String name) {
+    public static boolean isValidPersonName(String name) {
         return name.matches(FORMAT_PERSON_NAME);
     }
 
     /**
-     * Person name limit character alphabet and some punctuations.
-     *
      * @param userName input string
-     * @return boolean
+     * @return boolean - format validation
      */
-    public static boolean isUserName(String userName) {
+    public static boolean isValidUserName(String userName) {
         return userName.matches(FORMAT_USER_NAME);
     }
 
-    public static boolean isValidField(EditText editText) {
+    /**
+     * Validate using COMMON PHONE NUMBER FORMAT
+     *
+     * @param number input string
+     * @return boolean - format validation
+     */
+    public static boolean isValidPhoneNumber(String number) {
+        return PHONE.matcher(number).matches();
+    }
+
+
+    /**
+     * @param editText - EditText variable
+     * @return boolean -> true: valid user input field | false: invalid user input field
+     */
+    public static boolean isFieldValid(EditText editText) {
 
         if(isEmptyString(getStringValue(editText.getText().toString()))){
             editText.setError("⚠ This field is required!");
@@ -68,8 +90,70 @@ public class Validator {
         return true;
     }
 
+    /**
+     * check if number input field is valid
+     * @param editText - EditText variable
+     * @param isPositiveNumbersOnly - boolean -> true: set error for negative input | false : all numbers are valid
+     * @return boolean -> true: valid user input field | false: invalid user input field
+     */
+    public static boolean isFieldValidNumber(EditText editText, boolean isPositiveNumbersOnly) {
+        String value = getStringValue(editText.getText().toString());
 
-    private static boolean isValidEmailField(EditText editText) {
+        if (isEmptyString(value)) {
+            editText.setError("⚠ This field is required!");
+            return false;
+        }
+
+        try {
+            long no = Long.parseLong(value);
+            if (isPositiveNumbersOnly && no < 0) {
+                editText.setError("⚠ Invalid input!");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            Log.e(TAG, "isValidNumberField: ", e);
+            editText.setError("⚠ Invalid input!");
+        }
+        editText.setError(null);
+        return true;
+    }
+
+
+    /**
+     * check if floating-point number input field is valid
+     * @param editText - EditText variable
+     * @param isPositiveNumbersOnly - boolean -> true: set error for negative input | false : all numbers are valid
+     * @return boolean -> true: valid user input field | false: invalid user input field
+     */
+    public static boolean isFieldValidFloatNumber(EditText editText, boolean isPositiveNumbersOnly) {
+        String value = getStringValue(editText.getText().toString());
+
+        if (isEmptyString(value)) {
+            editText.setError("⚠ This field is required!");
+            return false;
+        }
+
+        try {
+            double no = Double.parseDouble(value);
+            if (isPositiveNumbersOnly && no < 0) {
+                editText.setError("⚠ Invalid input!");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            Log.e(TAG, "isValidFloatNumberField: ", e);
+            editText.setError("⚠ Invalid input!");
+        }
+        editText.setError(null);
+        return true;
+    }
+
+    /**
+     * Validate user email field
+     *
+     * @param editText : EditText variable of email
+     * @return Valid Format = true | Invalid format = false
+     */
+    private static boolean isFieldEmailValid(EditText editText) {
         String value = getStringValue(editText.getText().toString());
 
         if(isEmptyString(value)){
@@ -88,19 +172,19 @@ public class Validator {
     }
 
     /**
-     * Validate user name
+     * Validate user name field
      *
-     * @param editText : UserName's EditText
-     * @return Valid Format = true || Invalid = false
+     * @param editText : EditText variable of user name
+     * @return Valid Format = true | Invalid format = false
      */
-    public static boolean isValidUserNameField(EditText editText) {
+    public static boolean isFieldUserNameValid(EditText editText) {
         String value = getStringValue(editText.getText().toString());
 
         if (isEmptyString(value)) {
             editText.setError("⚠ User Name field is empty!");
             return false;
         }
-        if (!isUserName(value)) {
+        if (!isValidUserName(value)) {
             editText.setError("⚠ Invalid user name!");
             return false;
         }
@@ -111,19 +195,19 @@ public class Validator {
     }
 
     /**
-     * Validate Person name
+     * Validate person name field
      *
-     * @param editText : PersonName's EditText
-     * @return Valid Format = true || Invalid = false
+     * @param editText : EditText variable of person name
+     * @return Valid Format = true | Invalid format = false
      */
-    public static boolean isValidPersonNameField(EditText editText) {
+    public static boolean isFieldPersonNameValid(EditText editText) {
         String value = getStringValue(editText.getText().toString());
 
         if (isEmptyString(value)) {
             editText.setError("⚠ Name field is empty!");
             return false;
         }
-        if (!isPersonName(value)) {
+        if (!isValidPersonName(value)) {
             editText.setError("⚠ Invalid name!");
             return false;
         }
@@ -133,8 +217,13 @@ public class Validator {
         }
     }
 
-
-    public static boolean isValidPasswordField(EditText editText)  {
+    /**
+     * Validate password field
+     *
+     * @param editText : EditText variable of password
+     * @return Valid Format = true | Invalid format = false
+     */
+    public static boolean isFieldPasswordValid(EditText editText)  {
         String value = getStringValue(editText.getText().toString());
 
         if (isEmptyString(value)) {
@@ -157,16 +246,57 @@ public class Validator {
         }
     }
 
+    /**
+     * Validate phone number filed
+     *
+     * @param editText : EditText variable of Phone
+     * @return Valid Format = true | Invalid format = false
+     */
+    public static boolean isFieldPhoneNumberValid(EditText editText) {
+        String value = getStringValue(editText.getText().toString());
 
-    public static boolean isBothEmailPasswordValid(EditText email, EditText password) {
-        if(!isValidEmailField(email)) return false;
-        return isValidPasswordField(password);
+        if (isEmptyString(value)) {
+            editText.setError("⚠ Please enter a valid phone number!");
+            return false;
+        }
+
+        if (value.length() > 15) {
+            editText.setError("⚠ Please enter a valid phone number!");
+            return false;
+        }
+
+        if (!isValidPhoneNumber(value)) {
+            editText.setError("⚠ Please enter a valid phone number!");
+            return false;
+        }
+        else {
+            editText.setError(null);
+            return true;
+        }
     }
 
+    /**
+     * Validate both email and password fields
+     *
+     * @param email : EditText variable of email
+     * @param password : EditText variable of password
+     * @return both fields are valid = true | one or both fields are invalid = false
+     */
+    public static boolean isFieldsEmailPasswordValid(EditText email, EditText password) {
+        if(!isFieldEmailValid(email)) return false;
+        return isFieldPasswordValid(password);
+    }
 
-    public static boolean isBothPasswordsValid(EditText password, EditText confirmPassword) {
-        if(!isValidPasswordField(password)) return false;
-        if(!isValidPasswordField(confirmPassword)) return false;
+    /**
+     * Validate both password and confirm Password fields
+     *
+     * @param password : EditText variable of email
+     * @param confirmPassword : EditText variable of confirm Password
+     * @return both fields are valid = true | one or both fields are invalid = false
+     */
+    public static boolean isFieldBothPasswordsValid(EditText password, EditText confirmPassword) {
+        if(!isFieldPasswordValid(password)) return false;
+        if(!isFieldPasswordValid(confirmPassword)) return false;
 
 
         if (!getStringValue(password.getText().toString()).equals(getStringValue(confirmPassword.getText().toString()))) {
@@ -177,49 +307,5 @@ public class Validator {
             confirmPassword.setError(null);
             return true;
         }
-    }
-
-
-    public static boolean isValidNumberField(EditText editText) {
-        String value = getStringValue(editText.getText().toString());
-
-        if (isEmptyString(value)) {
-            editText.setError("⚠ This field is required!");
-            return false;
-        }
-
-        try {
-            if (Integer.parseInt(value) < 0) {
-                editText.setError("⚠ Invalid input!");
-                return false;
-            }
-        } catch (NumberFormatException e) {
-            Log.e(TAG, "isValidNumberField: ", e);
-            editText.setError("⚠ Invalid input!");
-        }
-        editText.setError(null);
-        return true;
-    }
-
-
-    public static boolean isValidFloatNumberField(EditText editText) {
-        String value = getStringValue(editText.getText().toString());
-
-        if (isEmptyString(value)) {
-            editText.setError("⚠ This field is required!");
-            return false;
-        }
-
-        try {
-            if (Float.parseFloat(value) < 0) {
-                editText.setError("⚠ Invalid input!");
-                return false;
-            }
-        } catch (NumberFormatException e) {
-            Log.e(TAG, "isValidFloatNumberField: ", e);
-            editText.setError("⚠ Invalid input!");
-        }
-        editText.setError(null);
-        return true;
     }
 }

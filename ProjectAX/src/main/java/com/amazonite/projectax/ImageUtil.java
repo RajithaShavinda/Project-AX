@@ -14,7 +14,6 @@ import java.io.ByteArrayOutputStream;
 public class ImageUtil {
     private static final String TAG = ImageUtil.class.getSimpleName();
 
-
     /**
      * convert Bitmap to byte array
      *

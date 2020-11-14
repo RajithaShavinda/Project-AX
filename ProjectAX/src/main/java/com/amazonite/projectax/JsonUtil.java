@@ -15,6 +15,12 @@ import java.nio.charset.StandardCharsets;
 public class JsonUtil {
     private static final String TAG = JsonUtil.class.getSimpleName();
 
+    /**
+     * Read json file from asset and return value as string
+     * @param context - application context
+     * @param filePath - json file's path
+     * @return file data as string format
+     */
     public static String readJsonFromAsset(Context context, String filePath) {
         if (!filePath.contains(".json")) {
             filePath += ".json";
@@ -34,6 +40,13 @@ public class JsonUtil {
         return null;
     }
 
+    /**
+     * Read json file from asset and return value as object
+     * @param context - application context
+     * @param filePath - json file's path
+     * @param ObjType - return object type
+     * @return converted object
+     */
     public static <T> T getObjectFromAssetJson(Context context, String filePath, Class<T> ObjType) {
         try {
             String json = readJsonFromAsset(context, filePath);
@@ -45,6 +58,12 @@ public class JsonUtil {
         return null;
     }
 
+    /**
+     * Read json file from asset and return value as JSON object
+     * @param context - application context
+     * @param filePath - json file's path
+     * @return json object
+     */
     public static JSONObject loadJSONFromAsset(Context context, String filePath) {
         try {
             String json = readJsonFromAsset(context, filePath);
@@ -58,17 +77,87 @@ public class JsonUtil {
     }
 
 
-    public static String getString(JSONObject json, String field) {
+    /**
+     * Get String value of the JSON object's given field has
+     * @param jsonObject - JSON object
+     * @param fieldName - field name / key
+     * @return value of the field
+     */
+    public static String getStringFromJson(JSONObject jsonObject, String fieldName) {
+        if (jsonObject == null) return null;
         try {
-            if (!json.has(field)) {
-                Log.e(TAG, "field :" + field + "| not found in json object");
+            if (!jsonObject.has(fieldName)) {
+                Log.e(TAG, "Field : \"" + fieldName + "\" not found in the json object");
                 return null;
             }
 
-            return json.getString(field);
+            return jsonObject.getString(fieldName);
         } catch (JSONException ex) {
-            Log.e(TAG, "getString: ", ex);
+            Log.e(TAG, "getStringFromJson: ", ex);
             return null;
+        }
+    }
+
+    /**
+     * Get int value of the JSON object's given field has
+     * @param jsonObject - JSON object
+     * @param key - field name / key
+     * @return value of the field
+     */
+    public static int getIntFromJson(JSONObject jsonObject, String key) {
+        if (jsonObject == null) return -1;
+        try {
+            if (!jsonObject.has(key)) {
+                Log.e(TAG, "Field : \"" + key + "\" not found in the json object");
+                return -1;
+            }
+
+            return jsonObject.getInt(key);
+        } catch (JSONException ex) {
+            Log.e(TAG, "getIntFromJson: ", ex);
+            return -1;
+        }
+    }
+
+    /**
+     * Get double value of the JSON object's given field has
+     * @param jsonObject - JSON object
+     * @param key - field name / key
+     * @return value of the field
+     */
+    public static double getDoubleFromJson(JSONObject jsonObject, String key) {
+        if (jsonObject == null) return -1d;
+        try {
+            if (!jsonObject.has(key)) {
+                Log.e(TAG, "Field : \"" + key + "\" not found in the json object");
+                return -1d;
+            }
+
+            return jsonObject.getDouble(key);
+        } catch (JSONException ex) {
+            Log.e(TAG, "getDoubleFromJson: ", ex);
+            return -1d;
+        }
+    }
+
+    /**
+     * Get boolean value of the JSON object's given field has
+     * @param jsonObject - JSON object
+     * @param key - field name / key
+     * @return value of the field
+     */
+    public static boolean getBooleanFromJson(JSONObject jsonObject, String key) {
+        if (jsonObject == null) return false;
+        try {
+            if (!jsonObject.has(key)) {
+                Log.e(TAG, "Field : \"" + key + "\" not found in the json object");
+                return false;
+            }
+
+            return jsonObject.getBoolean(key);
+        } catch (JSONException ex) {
+            Log.e(TAG, "getDoubleFromJson: ", ex);
+            return false;
         }
     }
 }

@@ -25,16 +25,10 @@ import static android.os.Build.TAGS;
 public class SystemUtil {
     private static final String TAG = SystemUtil.class.getSimpleName();
 
-    public SystemUtil() {
-    }
-
-
-    public static void setStyleDarkFullScreen(Activity activity) {
-        transparencyStatusBar(activity);
-        setNavigationBarColor(activity, Color.BLACK);
-    }
-
-
+    /**
+     * Make StatusBar transparent, StatusBar text light colour and full screen
+     * @param activity - current activity
+     */
     public static void transparencyStatusBar(Activity activity) {
         Window window = activity.getWindow();
         //change status bar text colour
@@ -55,18 +49,43 @@ public class SystemUtil {
         }
     }
 
+    /**
+     * Change NavigationBar colour
+     * @param activity - current activity
+     * @param resId - colour resource id
+     */
     public static void setNavigationBarColorByResource(Activity activity, int resId){
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().setNavigationBarColor(activity.getResources().getColor(resId));
         }
     }
 
+    /**
+     * Change NavigationBar colour
+     * @param activity - current activity
+     * @param color - colour in int format (EX. Color.BLACK)
+     */
     public static void setNavigationBarColor(Activity activity, int color){
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().setNavigationBarColor(color);
         }
     }
 
+    /**
+     * Make StatusBar transparent, StatusBar text light colour and full screen
+     * and Change NavigationBar dark colour
+     * @param activity - current activity
+     */
+    public static void setStyleDarkFullScreen(Activity activity) {
+        transparencyStatusBar(activity);
+        setNavigationBarColor(activity, Color.BLACK);
+    }
+
+
+    /**
+     * Hide keyboard from the screen
+     * @param activity - current activity
+     */
     public static void hideKeyboard(Activity activity) {
         View view = activity.getCurrentFocus();
         if (view != null) {
@@ -80,6 +99,11 @@ public class SystemUtil {
     }
 
 
+    /**
+     * Show keyboard in the screen
+     * @param context - app context
+     * @param editText - EditText variable that want to focus
+     */
     public static void showKeyboard(final Context context, final EditText editText) {
         new Handler().post(new Runnable() {
             @Override
@@ -93,9 +117,13 @@ public class SystemUtil {
         });
     }
 
-    public static void sleepFor(long millis) {
+    /**
+     * Pause the current thread execution
+     * @param milliseconds - time in milliseconds
+     */
+    public static void sleepFor(long milliseconds) {
         try {
-            Thread.sleep(millis);
+            Thread.sleep(milliseconds);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -108,8 +136,6 @@ public class SystemUtil {
     public static boolean isSDCardEnable() {
         return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
     }
-
-
 
     /**
      *  BRAND
@@ -133,6 +159,15 @@ public class SystemUtil {
      */
     public static String getOSVersion() {
         return "android " + Build.VERSION.RELEASE;
+    }
+
+    /**
+     * VERSION_NAME
+     * The app version name.
+     * Ex: "1.0.6"
+     */
+    public static String getVersionName() {
+        return BuildConfig.VERSION_NAME;
     }
 
     /**

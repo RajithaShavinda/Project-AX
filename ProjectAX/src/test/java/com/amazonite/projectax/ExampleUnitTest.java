@@ -11,6 +11,7 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
 
-        System.out.println(DateTimeUtil.getTimeZoneName() + " | " + DateTimeUtil.getDateOfMonth() );
+
+        System.out.println(TextUtil.toTitleCaseEveryWord("i was a nice kid"));
     }
 }

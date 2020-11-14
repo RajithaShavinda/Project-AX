@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.view.View;
 import android.view.Window;
@@ -28,7 +29,7 @@ public class SystemUtil {
     }
 
 
-    public static void setScreenStyleDark(Activity activity) {
+    public static void setStyleDarkFullScreen(Activity activity) {
         transparencyStatusBar(activity);
         setNavigationBarColor(activity, Color.BLACK);
     }
@@ -98,6 +99,14 @@ public class SystemUtil {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * check sdcard is mounted or not
+     * @return if sdcard is mounted , return true ; or return false
+     */
+    public static boolean isSDCardEnable() {
+        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
     }
 
 

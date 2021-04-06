@@ -8,7 +8,7 @@
   
   ---
   <br/>
-**Used API Endpoints**   <br/>
+## Used API Endpoints
 - GET http://jsonplaceholder.typicode.com/posts   <br/>
 - GET http://jsonplaceholder.typicode.com/users   <br/>
 - GET http://jsonplaceholder.typicode.com/comments   <br/>

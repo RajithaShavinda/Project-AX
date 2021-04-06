@@ -3,7 +3,7 @@
 **🗲 Android |  Kotlin 🗲** <br/>
 ⚉ MVVM ⚉ Rest API with Retrofit ⚉ Room Persistence Database ⚉ RxJava ⚉ Day/Night Theme ⚉ Map View <br/>
 
-<hr style="border:2px solid gray"> </hr>
+<hr style="border:1px solid gray"> </hr>
 
 ###### Used API Endpoints <br/>
 - [x] GET http://jsonplaceholder.typicode.com/posts   <br/>

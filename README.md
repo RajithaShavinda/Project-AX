@@ -1,6 +1,6 @@
 # Post Mate 
 
-**➤ Android |  Kotlin** <br/>
+**➤ Android |  Kotlin 🗲** <br/>
 ⚉ MVVM ⚉ Rest API with Retrofit ⚉ Room Persistence Database ⚉ RxJava ⚉ Day/Night Theme ⚉ Map View
 
 ---

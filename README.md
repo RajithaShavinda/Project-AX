@@ -5,7 +5,7 @@
 
 <br/>
 <br/>
-## Used API Endpoints
+## Used API Endpoints  <br/>
  - [x] GET http://jsonplaceholder.typicode.com/posts   <br/>
  - [x]  GET http://jsonplaceholder.typicode.com/users   <br/>
  - [x] GET http://jsonplaceholder.typicode.com/comments   <br/>

@@ -6,10 +6,10 @@
 <br/>
 <br/>
 ## Used API Endpoints  <br/>
- - [x] GET http://jsonplaceholder.typicode.com/posts   <br/>
- - [x]  GET http://jsonplaceholder.typicode.com/users   <br/>
- - [x] GET http://jsonplaceholder.typicode.com/comments   <br/>
- - [x] POST https://jsonplaceholder.typicode.com/posts (use userId as 1)   <br/>
+- [x] GET http://jsonplaceholder.typicode.com/posts   <br/>
+- [x]  GET http://jsonplaceholder.typicode.com/users   <br/>
+- [x] GET http://jsonplaceholder.typicode.com/comments   <br/>
+- [x] POST https://jsonplaceholder.typicode.com/posts (use userId as 1)   <br/>
 ○ Sample JSON body: { "title": "foo", "body": "bar", "userId": 1 }
 
 ---
